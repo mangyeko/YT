@@ -196,6 +196,12 @@ st.markdown("""
         color: #c99b5a !important;
     }
 
+    .feature-card h3 {
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.65rem !important;
+        color: #2d2d2d !important;
+    }
     /* 6. Primary Button & Download Button */
     .stButton > button, .stDownloadButton > button {
         width: 100%;

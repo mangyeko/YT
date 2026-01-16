@@ -34,9 +34,10 @@
         }
 
         .logo {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: #2d2d2d;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
@@ -59,7 +60,7 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem 4rem;
         }
 
         .hero {
@@ -68,16 +69,20 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #2d2d2d;
             margin-bottom: 1rem;
             font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #6d6d6d;
-            line-height: 1.6;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .download-card {
@@ -96,40 +101,48 @@
 
         input[type="text"] {
             flex: 1;
-            padding: 1rem 1.5rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            padding: 1.1rem 1.5rem;
+            border: 2px solid #e8e8e8;
+            border-radius: 14px;
             font-size: 1rem;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             background: #fafafa;
+            font-family: inherit;
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
         }
 
         input[type="text"]:focus {
             outline: none;
-            border-color: #8d7a5e;
+            border-color: #c99b5a;
             background: white;
+            box-shadow: 0 0 0 4px rgba(201, 155, 90, 0.08);
         }
 
         button {
-            padding: 1rem 2rem;
+            padding: 1.1rem 2.5rem;
             background: #c99b5a;
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         button:hover {
             background: #b88a49;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(201, 155, 90, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201, 155, 90, 0.3);
         }
 
         button:active {
             transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(201, 155, 90, 0.3);
         }
 
         .format-options {
@@ -142,27 +155,31 @@
         .format-card {
             background: #f8f5f0;
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 14px;
             text-align: center;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
         .format-card:hover {
             border-color: #c99b5a;
-            background: white;
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         }
 
         .format-card.active {
             border-color: #c99b5a;
-            background: white;
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(201, 155, 90, 0.12);
         }
 
         .format-label {
-            font-weight: 600;
+            font-weight: 700;
             color: #2d2d2d;
             margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
 
         .format-desc {
@@ -195,15 +212,16 @@
         }
 
         .feature h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+            margin-bottom: 0.65rem;
             color: #2d2d2d;
+            font-weight: 700;
         }
 
         .feature p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #6d6d6d;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .note {
