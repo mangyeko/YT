@@ -23,43 +23,61 @@ st.markdown("""
     
     /* Navigation Simulation */
     .nav-container {
-        background: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);
-        padding: 1rem 2rem;
+        padding: 1rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        margin: -4rem -4rem 2rem -4rem;
+        margin-bottom: 3rem;
     }
     .logo {
         font-size: 1.2rem;
         font-weight: 600;
         color: #2d2d2d;
     }
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        color: #5d5d5d;
+        font-size: 0.9rem;
+    }
     
     /* Hero section */
     .hero-container {
         text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
     h1 {
         font-size: 2.5rem !important;
         color: #2d2d2d !important;
         font-weight: 700 !important;
+        margin-bottom: 0.5rem !important;
     }
     .subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: #6d6d6d;
         line-height: 1.6;
+        margin-bottom: 2rem;
     }
     
-    /* Input Card */
+    /* Main Card Container */
+    .main-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        margin-bottom: 3rem;
+    }
+    
+    /* Input Group Styling */
     .stTextInput > div > div > input {
         border-radius: 12px !important;
         border: 2px solid #e0e0e0 !important;
-        padding: 1rem 1.5rem !important;
+        padding: 0.8rem 1.2rem !important;
         background: #fafafa !important;
+        font-size: 1rem !important;
+    }
+    .stTextInput > div > div > input:focus {
+        border-color: #c99b5a !important;
     }
     
     /* Buttons */
@@ -68,37 +86,67 @@ st.markdown("""
         background-color: #c99b5a !important;
         color: white !important;
         border-radius: 12px !important;
-        padding: 0.75rem 2rem !important;
+        padding: 0.6rem 1.5rem !important;
         font-weight: 600 !important;
         border: none !important;
-        transition: all 0.2s !important;
+        height: 3.2rem !important;
+        margin-top: 1px !important;
     }
     .stButton > button:hover {
         background-color: #b88a49 !important;
-        transform: translateY(-1px) !important;
         box-shadow: 0 4px 12px rgba(201, 155, 90, 0.3) !important;
     }
     
-    /* Features */
-    .feature-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        height: 100%;
+    /* Radio Buttons / Format Selector */
+    .stHorizontalBlock [data-testid="stWidgetLabel"] {
+        display: none;
     }
-    .feature-icon {
-        font-size: 1.8rem;
-        margin-bottom: 0.5rem;
+    [data-testid="stMarkdownContainer"] p {
+        margin-bottom: 0;
+    }
+    
+    /* Feature Icons - Reference style */
+    .feature-item {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    .feature-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.8rem;
+        font-size: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .feature-item h3 {
+        font-size: 1rem !important;
+        color: #2d2d2d !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.3rem !important;
+    }
+    .feature-item p {
+        font-size: 0.85rem !important;
+        color: #6d6d6d !important;
+        line-height: 1.4 !important;
     }
     
     /* Footer Note */
     .note {
         text-align: center;
-        font-size: 0.9rem;
-        color: #7d7d7d;
-        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: #8d8d8d;
+        margin-top: 1.5rem;
+    }
+
+    /* Streamlit Overrides */
+    div[data-testid="stExpander"] {
+        background: rgba(255,255,255,0.4);
+        border-radius: 12px;
+        border: 1px solid rgba(0,0,0,0.05);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -107,6 +155,11 @@ st.markdown("""
 st.markdown("""
     <div class="nav-container">
         <div class="logo">CaptionGrab</div>
+        <div class="nav-links">
+            <span>Home</span>
+            <span>How it works</span>
+            <span>FAQ</span>
+        </div>
     </div>
 """, unsafe_allow_html=True)
 
@@ -118,66 +171,63 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Main Card
-with st.container():
-    col1, col2 = st.columns([4, 1])
-    
-    with col1:
-        url_input = st.text_input("YouTube URL", placeholder="Paste YouTube Shorts URL here...", label_visibility="collapsed")
-    
-    with col2:
-        download_clicked = st.button("Get Captions")
+# Main Card Wrapper
+st.markdown('<div class="main-card">', unsafe_allow_html=True)
 
-    # Format selection in Streamlit style but consistent with design
-    format_type = st.radio(
-        "Select Format",
-        options=["SRT", "TXT", "VTT"],
-        horizontal=True,
-        index=0,
-        label_visibility="collapsed"
-    )
-    
-    st.markdown('<p class="note">Supports all YouTube Shorts videos with available captions</p>', unsafe_allow_html=True)
+col1, col2 = st.columns([3, 1])
 
-# Logic
+with col1:
+    url_input = st.text_input("YouTube URL", placeholder="Paste YouTube Shorts URL here...", label_visibility="collapsed")
+
+with col2:
+    download_clicked = st.button("Get Captions")
+
+# Format selection
+format_type = st.radio(
+    "Select Format",
+    options=["SRT", "TXT", "VTT"],
+    horizontal=True,
+    index=0
+)
+
+st.markdown('<p class="note">Supports all YouTube Shorts videos with available captions</p>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Logic execution
 if download_clicked:
     if url_input:
         video_id = yt.extract_video_id(url_input)
         if video_id:
-            with st.spinner(f"Fetching {format_type} for Video ID: {video_id}..."):
+            with st.spinner(f"Fetching..."):
                 transcript = yt.get_transcript(video_id, format_type.lower())
                 
                 if transcript.startswith("ERROR:"):
                     st.error(transcript)
                 else:
                     st.success("✓ Transcript retrieved!")
-                    
-                    # Preview
-                    with st.expander("Preview Transcript"):
+                    with st.expander("Preview"):
                         st.text_area("Content", transcript, height=200)
                     
-                    # Download button
                     file_ext = format_type.lower()
-                    filename = f"transcript_{video_id}.{file_ext}"
                     st.download_button(
-                        label=f"Download {format_type} File",
+                        label=f"Download {format_type}",
                         data=transcript,
-                        file_name=filename,
-                        mime="text/plain" if file_ext == "txt" else "text/vtt" if file_ext == "vtt" else "application/x-subrip"
+                        file_name=f"transcript_{video_id}.{file_ext}",
+                        mime="text/plain"
                     )
         else:
-            st.error("Invalid YouTube URL. Please check the link and try again.")
+            st.error("Invalid YouTube URL")
     else:
-        st.warning("Please paste a YouTube URL first.")
+        st.warning("Please paste a URL")
 
-# Features section
-st.markdown("---")
+# Features section - Using the minimal circular icon style
+st.markdown("<br><br>", unsafe_allow_html=True)
 f_col1, f_col2, f_col3 = st.columns(3)
 
 with f_col1:
     st.markdown("""
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
+        <div class="feature-item">
+            <div class="feature-icon-wrapper">⚡</div>
             <h3>Instant Download</h3>
             <p>Get your captions in seconds without any signup required</p>
         </div>
@@ -185,8 +235,8 @@ with f_col1:
 
 with f_col2:
     st.markdown("""
-        <div class="feature-card">
-            <div class="feature-icon">🎯</div>
+        <div class="feature-item">
+            <div class="feature-icon-wrapper">🎯</div>
             <h3>Multiple Formats</h3>
             <p>Download in SRT, TXT, or VTT format based on your needs</p>
         </div>
@@ -194,28 +244,20 @@ with f_col2:
 
 with f_col3:
     st.markdown("""
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
+        <div class="feature-item">
+            <div class="feature-icon-wrapper">🔒</div>
             <h3>Safe & Private</h3>
             <p>No data stored, completely private and secure processing</p>
         </div>
     """, unsafe_allow_html=True)
 
-# Bulk mode expander
-st.markdown("<br>", unsafe_allow_html=True)
+# Bulk mode - subtle expander at the bottom
+st.markdown("<br><br>", unsafe_allow_html=True)
 with st.expander("Advanced: Bulk Processing"):
-    st.info("Paste multiple URLs (one per line) to fetch all at once.")
-    bulk_urls = st.text_area("Bulk URLs", placeholder="https://youtube.com/shorts/...\nhttps://youtube.com/watch?v=...", height=150)
+    bulk_urls = st.text_area("Bulk URLs (one per line)", height=150)
     if st.button("Process Bulk"):
         urls = [u.strip() for u in bulk_urls.split("\n") if u.strip()]
         if urls:
-            bulk_results = yt.process_urls(urls, format_type.lower())
-            
-            combined_text = ""
-            for i, res in enumerate(bulk_results, 1):
-                combined_text += f"{'='*30}\nVIDEO {i}: {res['url']}\n{'='*30}\n{res['transcript']}\n\n"
-            
-            st.text_area("Results", combined_text, height=300)
-            st.download_button("Download All Results (TXT)", combined_text, file_name="bulk_transcripts.txt")
-        else:
-            st.warning("No URLs found in the text area.")
+            results = yt.process_urls(urls, format_type.lower())
+            combined = "\n\n".join([f"--- {r['url']} ---\n{r['transcript']}" for r in results])
+            st.download_button("Download All", combined, file_name="bulk_transcripts.txt")
