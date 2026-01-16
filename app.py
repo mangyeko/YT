@@ -97,7 +97,7 @@ st.markdown("""
         margin-right: auto;
     }
 
-    /* 4. Inputs (The "Card" look applied to the widget itself) */
+    /* 4. Inputs */
     .stTextArea textarea {
         background-color: #ffffff !important;
         border: 2px solid #e0e0e0 !important;
@@ -106,6 +106,7 @@ st.markdown("""
         padding: 1.5rem !important;
         font-size: 1rem !important;
         color: #333 !important;
+        caret-color: #333 !important; /* Fix cursor visibility */
         transition: all 0.2s ease;
     }
     .stTextArea textarea:focus {
@@ -161,18 +162,23 @@ st.markdown("""
     }
     div[data-testid="stAlert"] p {
         font-size: 1rem;
+        color: #2d2d2d !important;
     }
-    /* Hide the default icons if possible or let them be */
     
     /* Code/Preview Blocks */
     code {
-        color: #2d2d2d !important;
-        background-color: #f8f5f0 !important; /* Light beige matching radio */
+        color: #3d3d3d !important; /* Dark Grey Text */
+        background-color: #f0ebe4 !important; /* Visible Beige/Grey mix */
         font-family: 'Consolas', 'Monaco', monospace;
     }
     .stCodeBlock {
         border-radius: 8px !important;
-        border: 1px solid #e0e0e0 !important;
+        border: 1px solid #d4c5a9 !important; /* Subtle border matching theme */
+    }
+    /* Force specific height and scroll for large blocks */
+    .stCodeBlock pre {
+        max-height: 300px !important;
+        overflow-y: auto !important;
     }
     
     /* Expander Styling */
